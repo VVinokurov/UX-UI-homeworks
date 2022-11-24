@@ -8,7 +8,9 @@
 import UIKit
 
 class FeedViewController: UIViewController {
-
+    
+    var post = Post(title: "Мой пост")
+    
     private lazy var button: UIButton = {
             let button = UIButton()
             button.backgroundColor = .blue
@@ -32,6 +34,7 @@ class FeedViewController: UIViewController {
     @objc private func buttonAction() {
             let postViewController = PostViewController()
             self.navigationController?.pushViewController(postViewController, animated: true)
+            postViewController.titlePost = post.title
         }
     
     override func viewDidLoad() {
@@ -41,7 +44,6 @@ class FeedViewController: UIViewController {
         
         // Do any additional setup after loading the view.
     }
-
 
 }
 
