@@ -8,20 +8,25 @@
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-    func createFirstController() -> UINavigationController {
-        let nvc = UINavigationController(rootViewController: FeedViewController())
-        nvc.tabBarItem = UITabBarItem(title: "FirstNC", image: UIImage(systemName: "externaldrive.badgeperson.crop"), tag: 0)
+    func createFeedViewController() -> UINavigationController {
+        let feedViewController = FeedViewController()
+        feedViewController.title = "Лента"
+        let nvc = UINavigationController(rootViewController: feedViewController)
+        nvc.tabBarItem = UITabBarItem(title: "Лента", image: UIImage(systemName: "list.bullet.circle"), tag: 0)
         return nvc
     }
     
-    func createSecondController() -> UINavigationController {
-        let nvc = UINavigationController(rootViewController: ProfileViewController())
-        nvc.tabBarItem = UITabBarItem(title: "menucard", image: UIImage(systemName: "externaldrive.badgeperson.crop"), tag: 0)
+    func createProfileViewController() -> UINavigationController {
+        let profileViewController = ProfileViewController()
+        profileViewController.title = "Профиль"
+        let nvc = UINavigationController(rootViewController: profileViewController)
+        nvc.tabBarItem = UITabBarItem(title: "Профиль", image: UIImage(systemName: "person.badge.shield.checkmark.fill"), tag: 0)
         return nvc
     }
     func createTabBar() -> UITabBarController {
         let tabBar = UITabBarController()
-        tabBar.viewControllers = [createFirstController(), createSecondController()]
+        tabBar.viewControllers = [createFeedViewController(), createProfileViewController()]
+        tabBar.tabBar.backgroundColor = .white
         return tabBar
     }
     
