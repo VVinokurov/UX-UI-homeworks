@@ -10,17 +10,17 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func createFeedViewController() -> UINavigationController {
         let feedViewController = FeedViewController()
-        feedViewController.title = "Лента"
+        feedViewController.title = "Feed"
         let nvc = UINavigationController(rootViewController: feedViewController)
-        nvc.tabBarItem = UITabBarItem(title: "Лента", image: UIImage(systemName: "list.bullet.circle"), tag: 0)
+        nvc.tabBarItem = UITabBarItem(title: "Feed", image: UIImage(systemName: "list.bullet.circle"), tag: 0)
         return nvc
     }
     
     func createProfileViewController() -> UINavigationController {
         let profileViewController = ProfileViewController()
-        profileViewController.title = "Профиль"
+        profileViewController.title = "Profile"
         let nvc = UINavigationController(rootViewController: profileViewController)
-        nvc.tabBarItem = UITabBarItem(title: "Профиль", image: UIImage(systemName: "person.badge.shield.checkmark.fill"), tag: 0)
+        nvc.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person.badge.shield.checkmark.fill"), tag: 0)
         return nvc
     }
     func createTabBar() -> UITabBarController {
