@@ -21,8 +21,8 @@ class ProfileHeaderView: UIView {
         }()
         
         lazy var nickname: UILabel = {
-            let name = UILabel (frame: CGRect(x: 225, y: 27, width: 150, height: 22))
-            name.center = CGPoint(x: 225, y: 38)
+            let name = UILabel (frame: CGRect(x: 235, y: 27, width: 218, height: 22))
+            name.center = CGPoint(x: 268, y: 38)
             name.textAlignment = .left
             name.text = "Mr. Black"
             name.font = UIFont.boldSystemFont(ofSize: 18.0)
@@ -31,14 +31,32 @@ class ProfileHeaderView: UIView {
         }()
         
         lazy var statusText: UILabel = {
-            let status = UILabel (frame: CGRect(x: 225, y: 104, width: 150, height: 22))
-            status.center = CGPoint(x: 225, y: 115)
+            let status = UILabel (frame: CGRect(x: 235, y: 80, width: 218, height: 22))
+            status.center = CGPoint(x: 268, y: 87)
             status.textAlignment = .left
             status.text = "Waiting for something"
             status.font = UIFont(name: "HelveticaNeue", size: 14)
             status.textColor = .gray
             return status
         }()
+    
+       lazy var textField: UITextField = {
+            var textEnter = UITextField (frame: CGRect(x: 235, y: 100, width: 218, height: 40))
+           textEnter.center = CGPoint(x: 268, y: 120)
+           textEnter.textAlignment = .left
+           textEnter.contentVerticalAlignment = .center
+           textEnter.font = UIFont(name: "HelveticaNeue", size: 15)
+           textEnter.textColor = .black
+           textEnter.backgroundColor = .white
+           textEnter.layer.borderWidth = 1.0
+           textEnter.layer.borderColor = UIColor.black.cgColor
+           textEnter.layer.cornerRadius = 14.0
+           textEnter.addTarget(self, action: #selector(statusTextChanged), for: .editingChanged)
+           textEnter.clearButtonMode = .always
+           textEnter.keyboardType = UIKeyboardType.default
+            return textEnter
+        }()
+    
         
         lazy var button: UIButton = {
             let button = UIButton()
@@ -60,10 +78,17 @@ class ProfileHeaderView: UIView {
         self.addSubview(avatar)
         self.addSubview(nickname)
         self.addSubview(statusText)
+        self.addSubview(textField)
         self.addSubview(button)
     }
 
     @objc func buttonPressed() {
-        print(statusText.text ?? "")
+       statusText.text = statusTextEdit
+    }
+    private var statusTextEdit: String = ""
+    
+    @objc func statusTextChanged(_sender: UITextField) {
+       statusTextEdit = textField.text ?? ""
     }
 }
+
