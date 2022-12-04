@@ -19,11 +19,24 @@ class ProfileViewController: UIViewController {
         mainView.backgroundColor = .lightGray
         mainView.translatesAutoresizingMaskIntoConstraints = false
         let safeArea = self.view.safeAreaLayoutGuide
+        let newButton = UIButton(frame: .zero)
+        newButton.backgroundColor = .blue
+        newButton.layer.cornerRadius = 0
+        newButton.setTitle("New button", for: .normal)
+        newButton.setTitleColor(.white, for: .normal)
+        newButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        newButton.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(newButton)
         NSLayoutConstraint.activate([
             mainView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0),
             mainView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0),
             mainView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 0),
-            mainView.heightAnchor.constraint(equalToConstant: 220),])
+            mainView.heightAnchor.constraint(equalToConstant: 220),
+            newButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0),
+            newButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0),
+            newButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: 0),
+            newButton.heightAnchor.constraint(equalToConstant: 40)
+        ])
         mainView.setupConstraints()
         // Do any additional setup after loading the view.
     }
