@@ -16,12 +16,19 @@ class ProfileViewController: UIViewController {
         view.backgroundColor = .white
         self.view.addSubview(mainView)
         mainView.addSubview()
+        mainView.backgroundColor = .lightGray
+        mainView.translatesAutoresizingMaskIntoConstraints = false
+        let safeArea = self.view.safeAreaLayoutGuide
+        NSLayoutConstraint.activate([
+            mainView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0),
+            mainView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0),
+            mainView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 0),
+            mainView.heightAnchor.constraint(equalToConstant: 220),])
+        mainView.setupConstraints()
         // Do any additional setup after loading the view.
     }
     
-    override func viewWillLayoutSubviews() {
-        mainView.frame = CGRect(x: 0, y: 100, width: Int(self.view.frame.width), height: Int(self.view.frame.height))
-        mainView.backgroundColor = .lightGray
+        
         /*
          // MARK: - Navigation
          
@@ -32,4 +39,4 @@ class ProfileViewController: UIViewController {
          }
          */
     }
-}
+
