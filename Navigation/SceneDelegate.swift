@@ -17,11 +17,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func createProfileViewController() -> UINavigationController {
-        let profileViewController = LogInViewController()
-        profileViewController.title = "Profile"
-        let nvc = UINavigationController(rootViewController: profileViewController)
+        let logInViewController = LogInViewController()
+        logInViewController.title = "Log in"
+        let nvc = UINavigationController(rootViewController: logInViewController)
         nvc.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person.badge.shield.checkmark.fill"), tag: 0)
-        nvc.tabBarController?.tabBar.isHidden = true
         return nvc
     }
     func createTabBar() -> UITabBarController {
