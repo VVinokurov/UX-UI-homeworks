@@ -80,6 +80,7 @@ class ProfileHeaderView: UIView {
         self.addSubview(statusText)
         self.addSubview(textField)
         self.addSubview(button)
+        self.backgroundColor = .lightGray
     }
     
     func setupConstraints() {
@@ -92,6 +93,7 @@ class ProfileHeaderView: UIView {
         button.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
         button.topAnchor.constraint(equalTo: self.avatar.bottomAnchor, constant: 16),
         button.heightAnchor.constraint(equalToConstant: 50),
+        button.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -16),
         nickname.topAnchor.constraint(equalTo: self.topAnchor, constant: 27),
         nickname.leadingAnchor.constraint(equalTo: self.avatar.trailingAnchor, constant: 16),
         nickname.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
@@ -100,13 +102,14 @@ class ProfileHeaderView: UIView {
         textField.leadingAnchor.constraint(equalTo: self.avatar.trailingAnchor, constant: 16),
         textField.heightAnchor.constraint(equalToConstant: 40),
         textField.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+        textField.topAnchor.constraint(equalTo: self.statusText.bottomAnchor, constant: 16),
         statusText.topAnchor.constraint(equalTo: self.nickname.bottomAnchor, constant: 16),
         statusText.leadingAnchor.constraint(equalTo: self.avatar.trailingAnchor, constant: 16),
         statusText.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
         statusText.heightAnchor.constraint(equalToConstant: 20)
         ])
     }
-
+    
     @objc func buttonPressed() {
        statusText.text = statusTextEdit
     }

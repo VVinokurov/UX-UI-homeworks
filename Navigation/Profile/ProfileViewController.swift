@@ -7,49 +7,67 @@
 
 import UIKit
 
+var cellID = "PostTableViewCell"
+
+struct Posts {
+    var author: String
+    var description: String
+    var image: String
+    var likes: Int
+    var views: Int
+}
+
 class ProfileViewController: UIViewController {
 
-    let mainView = ProfileHeaderView()
+    var postsForTable = [Posts(author: "Интерфакс", description: "Цены на нефть растут после падения по итогам минувшей недели", image: "нефть.jpeg", likes: 200, views: 2350), Posts(author: "Minimalism", description: "В чем смысл минимализма? Почему нас вообще должно волновать меньшее потребление и нужно ли нам отказываться от всего, что есть?", image: "минимализм.jpeg", likes: 45, views: 573), Posts(author: "mini.people", description: "Прокачай свой MINI наклейками", image: "mini.jpeg", likes: 347, views: 1250), Posts(author: "kot.tattoo", description: "Свободный эскиз от мастера Саши", image: "кот.jpeg", likes: 206, views: 3458)]
+    
+    var tableView = UITableView(frame: .zero)
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        self.view.addSubview(mainView)
-        mainView.addSubview()
-        mainView.backgroundColor = .lightGray
-        mainView.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(tableView)
+        self.tableView.dataSource = self
+        self.tableView.delegate = self
+        self.tableView.rowHeight = UITableView.automaticDimension
+        
+        tableView.register(PostTableViewCell.self, forCellReuseIdentifier: cellID)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         let safeArea = self.view.safeAreaLayoutGuide
-        let newButton = UIButton(frame: .zero)
-        newButton.backgroundColor = .blue
-        newButton.layer.cornerRadius = 0
-        newButton.setTitle("New button", for: .normal)
-        newButton.setTitleColor(.white, for: .normal)
-        newButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        newButton.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(newButton)
         NSLayoutConstraint.activate([
-            mainView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0),
-            mainView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0),
-            mainView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 0),
-            mainView.heightAnchor.constraint(equalToConstant: 220),
-            newButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0),
-            newButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0),
-            newButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: 0),
-            newButton.heightAnchor.constraint(equalToConstant: 40)
+            tableView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
+            tableView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            tableView.topAnchor.constraint(equalTo: safeArea.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
         ])
-        mainView.setupConstraints()
-        // Do any additional setup after loading the view.
+        
+    }
+    }
+
+extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let profileView = ProfileHeaderView()
+        profileView.addSubview()
+        profileView.setupConstraints()
+       return profileView
     }
     
-        
-        /*
-         // MARK: - Navigation
-         
-         // In a storyboard-based application, you will often want to do a little preparation before navigation
-         override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-         // Get the new view controller using segue.destination.
-         // Pass the selected object to the new view controller.
-         }
-         */
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        postsForTable.count
     }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! PostTableViewCell
+        cell.author.text = postsForTable[indexPath.item].author
+        cell.image.image = UIImage(named: postsForTable[indexPath.item].image)
+        cell.descrip.text = postsForTable[indexPath.item].description
+        cell.likes.text = "Likes: " + String(postsForTable[indexPath.item].likes)
+        cell.views.text = "Views: " + String(postsForTable[indexPath.item].views)
+        return cell
+    }
+    
+}
+
 

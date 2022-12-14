@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6961CDFC293F88180079BFEB /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6961CDFB293F88180079BFEB /* LogInViewController.swift */; };
+		69A7320429474AF100948EA9 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A7320329474AF100948EA9 /* PostTableViewCell.swift */; };
 		69A8BBC8292FB9A200F480BC /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A8BBC7292FB9A200F480BC /* PostViewController.swift */; };
 		69A8BBCB292FCA1800F480BC /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A8BBCA292FCA1800F480BC /* Post.swift */; };
 		69A8BBCD292FF58800F480BC /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A8BBCC292FF58800F480BC /* InfoViewController.swift */; };
@@ -22,6 +23,7 @@
 
 /* Begin PBXFileReference section */
 		6961CDFB293F88180079BFEB /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
+		69A7320329474AF100948EA9 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		69A8BBC7292FB9A200F480BC /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		69A8BBCA292FCA1800F480BC /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		69A8BBCC292FF58800F480BC /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 				69D4471229360882008A2E2A /* Profile */,
 				69CA45B5292E3137007D2B74 /* AppDelegate.swift */,
 				69CA45B7292E3137007D2B74 /* SceneDelegate.swift */,
+				69A7320329474AF100948EA9 /* PostTableViewCell.swift */,
 				69CA45B9292E3137007D2B74 /* FeedViewController.swift */,
 				69A8BBC7292FB9A200F480BC /* PostViewController.swift */,
 				69A8BBCC292FF58800F480BC /* InfoViewController.swift */,
@@ -167,6 +170,7 @@
 				69A8BBCD292FF58800F480BC /* InfoViewController.swift in Sources */,
 				69A8BBCB292FCA1800F480BC /* Post.swift in Sources */,
 				69CA45B8292E3137007D2B74 /* SceneDelegate.swift in Sources */,
+				69A7320429474AF100948EA9 /* PostTableViewCell.swift in Sources */,
 				69A8BBC8292FB9A200F480BC /* PostViewController.swift in Sources */,
 				69D44714293608F3008A2E2A /* ProfileHeaderView.swift in Sources */,
 			);
