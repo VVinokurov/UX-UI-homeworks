@@ -84,17 +84,19 @@ class ProfileHeaderView: UIView {
     }
     
     func setupConstraints() {
+        let safeArea = self.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
-        avatar.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
-        avatar.topAnchor.constraint(equalTo: self.topAnchor, constant: 16),
+        avatar.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
+        avatar.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 16),
         avatar.heightAnchor.constraint(equalToConstant: 128),
         avatar.widthAnchor.constraint(equalToConstant: 128),
-        button.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
-        button.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
-        button.topAnchor.constraint(equalTo: self.avatar.bottomAnchor, constant: 16),
+        avatar.bottomAnchor.constraint(equalTo: button.topAnchor, constant: -16),
+        button.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
+        button.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
+        button.topAnchor.constraint(equalTo: avatar.bottomAnchor, constant: 16),
         button.heightAnchor.constraint(equalToConstant: 50),
         button.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -16),
-        nickname.topAnchor.constraint(equalTo: self.topAnchor, constant: 27),
+        nickname.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 27),
         nickname.leadingAnchor.constraint(equalTo: self.avatar.trailingAnchor, constant: 16),
         nickname.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
         nickname.heightAnchor.constraint(equalToConstant: 25),

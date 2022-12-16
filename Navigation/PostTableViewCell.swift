@@ -96,7 +96,7 @@ class PostTableViewCell: UITableViewCell {
             descrip.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 16),
             descrip.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor, constant: 16),
             descrip.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: -16),
-            //descrip.bottomAnchor.constraint(equalTo: likes.topAnchor, constant: -16),
+            descrip.bottomAnchor.constraint(equalTo: likes.topAnchor, constant: -16),
             likes.topAnchor.constraint(equalTo: descrip.bottomAnchor, constant: 16),
             likes.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor, constant: 16),
             likes.bottomAnchor.constraint(equalTo: self.containerView.bottomAnchor, constant: -16),
