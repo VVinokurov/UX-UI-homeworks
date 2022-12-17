@@ -20,6 +20,7 @@
 		69CA45CA292E842D007D2B74 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69CA45C9292E842D007D2B74 /* ProfileViewController.swift */; };
 		69D44714293608F3008A2E2A /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D44713293608F3008A2E2A /* ProfileHeaderView.swift */; };
 		69E6C16C294CA60C0077B1F2 /* PhotosTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E6C16B294CA60C0077B1F2 /* PhotosTableViewCell.swift */; };
+		69FB1C13294DCE3900EE0107 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69FB1C12294DCE3900EE0107 /* PhotosViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		69CA45C9292E842D007D2B74 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		69D44713293608F3008A2E2A /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		69E6C16B294CA60C0077B1F2 /* PhotosTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosTableViewCell.swift; sourceTree = "<group>"; };
+		69FB1C12294DCE3900EE0107 /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +77,7 @@
 				69CA45B7292E3137007D2B74 /* SceneDelegate.swift */,
 				69A7320329474AF100948EA9 /* PostTableViewCell.swift */,
 				69E6C16B294CA60C0077B1F2 /* PhotosTableViewCell.swift */,
+				69FB1C12294DCE3900EE0107 /* PhotosViewController.swift */,
 				69CA45B9292E3137007D2B74 /* FeedViewController.swift */,
 				69A8BBC7292FB9A200F480BC /* PostViewController.swift */,
 				69A8BBCC292FF58800F480BC /* InfoViewController.swift */,
@@ -175,6 +178,7 @@
 				69A8BBCB292FCA1800F480BC /* Post.swift in Sources */,
 				69CA45B8292E3137007D2B74 /* SceneDelegate.swift in Sources */,
 				69A7320429474AF100948EA9 /* PostTableViewCell.swift in Sources */,
+				69FB1C13294DCE3900EE0107 /* PhotosViewController.swift in Sources */,
 				69A8BBC8292FB9A200F480BC /* PostViewController.swift in Sources */,
 				69D44714293608F3008A2E2A /* ProfileHeaderView.swift in Sources */,
 			);

@@ -24,8 +24,6 @@ class ProfileViewController: UIViewController {
 
     var postsForTable = [Posts(author: "Интерфакс", description: "Цены на нефть растут после падения по итогам минувшей недели", image: "нефть.jpeg", likes: 200, views: 2350), Posts(author: "Minimalism", description: "В чем смысл минимализма? Почему нас вообще должно волновать меньшее потребление и нужно ли нам отказываться от всего, что есть?", image: "минимализм.jpeg", likes: 45, views: 573), Posts(author: "mini.people", description: "Прокачай свой MINI наклейками", image: "mini.jpeg", likes: 347, views: 1250), Posts(author: "kot.tattoo", description: "Свободный эскиз от мастера Саши", image: "кот.jpeg", likes: 206, views: 3458)]
     
-    var imagesForTable = ["image1", "image2", "image3", "image4"]
-    
     var tableView = UITableView(frame: .zero)
     
     
@@ -36,6 +34,7 @@ class ProfileViewController: UIViewController {
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.tableView.rowHeight = UITableView.automaticDimension
+        self.tableView.sectionHeaderTopPadding = .leastNormalMagnitude
         
         tableView.register(PostTableViewCell.self, forCellReuseIdentifier: cellID)
         tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: cellPhotos)
@@ -72,10 +71,9 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         if section == 0 {
             return UITableView.automaticDimension
         }else {
-            return 0.0
+            return 0
         }
     }
-    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch(section) {
@@ -99,6 +97,13 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
             cell.likes.text = "Likes: " + String(postsForTable[indexPath.item].likes)
             cell.views.text = "Views: " + String(postsForTable[indexPath.item].views)
             return cell
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0 && indexPath.row == 0 {
+                let destination = PhotosViewController()
+                navigationController?.pushViewController(destination, animated: true)
         }
     }
     

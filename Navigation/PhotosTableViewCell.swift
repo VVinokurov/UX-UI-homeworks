@@ -52,6 +52,15 @@ class PhotosTableViewCell: UITableViewCell {
         return imageView
     }()
     
+    var imageArrowRight: UIImageView = {
+        var image = UIImageView(image: UIImage(systemName: "arrow.right"))
+        image.translatesAutoresizingMaskIntoConstraints = false
+        image.tintColor = .black
+        image.clipsToBounds = true
+        return image
+    }()
+    
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         addSubViewsAndlayout()
@@ -69,6 +78,7 @@ class PhotosTableViewCell: UITableViewCell {
         contentView.addSubview(image2)
         contentView.addSubview(image3)
         contentView.addSubview(image4)
+        contentView.addSubview(imageArrowRight)
 
     
         NSLayoutConstraint.activate ([
@@ -97,6 +107,10 @@ class PhotosTableViewCell: UITableViewCell {
             image4.widthAnchor.constraint(equalToConstant: (contentView.frame.width - 48)/4),
             image4.heightAnchor.constraint(equalTo: image4.widthAnchor, multiplier: 2/3),
             image4.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
+            imageArrowRight.centerYAnchor.constraint(equalTo: label.centerYAnchor),
+            imageArrowRight.heightAnchor.constraint(equalToConstant: 20),
+            imageArrowRight.widthAnchor.constraint(equalToConstant: 20),
+            imageArrowRight.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12)
         ])
     }
 
