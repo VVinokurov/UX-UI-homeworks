@@ -21,6 +21,7 @@
 		69D44714293608F3008A2E2A /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D44713293608F3008A2E2A /* ProfileHeaderView.swift */; };
 		69E6C16C294CA60C0077B1F2 /* PhotosTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E6C16B294CA60C0077B1F2 /* PhotosTableViewCell.swift */; };
 		69FB1C13294DCE3900EE0107 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69FB1C12294DCE3900EE0107 /* PhotosViewController.swift */; };
+		69FB1C15294DD93100EE0107 /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69FB1C14294DD93000EE0107 /* PhotosCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		69D44713293608F3008A2E2A /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		69E6C16B294CA60C0077B1F2 /* PhotosTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosTableViewCell.swift; sourceTree = "<group>"; };
 		69FB1C12294DCE3900EE0107 /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
+		69FB1C14294DD93000EE0107 /* PhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +80,7 @@
 				69A7320329474AF100948EA9 /* PostTableViewCell.swift */,
 				69E6C16B294CA60C0077B1F2 /* PhotosTableViewCell.swift */,
 				69FB1C12294DCE3900EE0107 /* PhotosViewController.swift */,
+				69FB1C14294DD93000EE0107 /* PhotosCollectionViewCell.swift */,
 				69CA45B9292E3137007D2B74 /* FeedViewController.swift */,
 				69A8BBC7292FB9A200F480BC /* PostViewController.swift */,
 				69A8BBCC292FF58800F480BC /* InfoViewController.swift */,
@@ -173,6 +176,7 @@
 				69CA45BA292E3137007D2B74 /* FeedViewController.swift in Sources */,
 				6961CDFC293F88180079BFEB /* LogInViewController.swift in Sources */,
 				69E6C16C294CA60C0077B1F2 /* PhotosTableViewCell.swift in Sources */,
+				69FB1C15294DD93100EE0107 /* PhotosCollectionViewCell.swift in Sources */,
 				69CA45B6292E3137007D2B74 /* AppDelegate.swift in Sources */,
 				69A8BBCD292FF58800F480BC /* InfoViewController.swift in Sources */,
 				69A8BBCB292FCA1800F480BC /* Post.swift in Sources */,

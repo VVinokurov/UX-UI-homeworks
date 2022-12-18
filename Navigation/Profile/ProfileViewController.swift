@@ -7,8 +7,6 @@
 
 import UIKit
 
-let groupSection = ["Photos","Posts"]
-
 var cellID = "PostTableViewCell"
 var cellPhotos = "PhotosTableViewCell"
 
