@@ -101,10 +101,8 @@ class ProfileViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     @objc func tap(){
-        //self.profileView.avatar.superview?.bringSubviewToFront(self.profileView.avatar)
         self.addBlackView()
         self.addButton()
-        //self.blackView.bringSubviewToFront(self.profileView.avatar)
     
         UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
             self.blackView.alpha = 0.5
@@ -114,10 +112,7 @@ class ProfileViewController: UIViewController, UIGestureRecognizerDelegate {
             height: UIScreen.main.bounds.width)
             self.profileView.avatar.center = CGPoint(x: self.tableView.bounds.width/2, y: self.tableView.bounds.height/2)
             self.profileView.avatar.layoutIfNeeded()
-//            self.profileView.avatar.center.x = self.tableView.bounds.width/2
-//            self.profileView.avatar.center.y = self.tableView.bounds.height/2
-//            let width = self.view.bounds.width / self.profileView.avatar.bounds.width
-//            self.profileView.avatar.transform = CGAffineTransform(scaleX: width, y: width)
+
         }) { _ in
             UIView.animate(withDuration: 0.3, delay: 0, animations: {
                 self.closeButton.alpha = 1.0
