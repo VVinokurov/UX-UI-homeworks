@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 class ProfileHeaderView: UIView {
+    
     lazy var avatar: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "avatar.jpeg"))
         imageView.layer.borderWidth = 3.0
@@ -17,10 +18,9 @@ class ProfileHeaderView: UIView {
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.isUserInteractionEnabled = true
-        imageView.isOpaque = false
+        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector (tapAvatar)))
         return imageView
     }()
-    
     
     lazy var nickname: UILabel = {
         let name = UILabel(frame: .zero)
@@ -86,18 +86,17 @@ class ProfileHeaderView: UIView {
     }
     
     
+    
     func setupConstraints() {
         let safeArea = self.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
-        avatar.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
+        avatar.leftAnchor.constraint(equalTo: safeArea.leftAnchor, constant: 16),
         avatar.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 16),
         avatar.heightAnchor.constraint(equalToConstant: 128),
         avatar.widthAnchor.constraint(equalToConstant: 128),
-        avatar.centerXAnchor.constraint(equalTo: safeArea.leftAnchor, constant: 80),
-        avatar.centerYAnchor.constraint(equalTo: safeArea.topAnchor, constant: -80),
         button.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
         button.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
-        button.topAnchor.constraint(equalTo: avatar.bottomAnchor, constant: 16),
+        button.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 16),
         button.heightAnchor.constraint(equalToConstant: 50),
         button.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -16),
         nickname.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 27),
@@ -114,6 +113,72 @@ class ProfileHeaderView: UIView {
         statusText.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
         statusText.heightAnchor.constraint(equalToConstant: 20),
         ])
+    }
+    
+    let closeButton = UIButton(frame: .zero)
+    let blackView = UIView(frame: CGRect(x:0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+    
+    func addBlackView() {
+        self.addSubview(blackView)
+        self.bringSubviewToFront(avatar)
+        blackView.backgroundColor = .black
+        blackView.alpha = 0.0
+    }
+    
+    func addButton() {
+        self.addSubview(closeButton)
+        closeButton.setImage(UIImage(systemName: "clear"), for: .normal)
+        closeButton.addTarget(self, action: #selector(tapReverse), for: .touchUpInside)
+        closeButton.translatesAutoresizingMaskIntoConstraints = false
+        closeButton.backgroundColor = .clear
+        closeButton.alpha = 0.0
+        let safeArea = self.safeAreaLayoutGuide
+        NSLayoutConstraint.activate([
+            closeButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
+            closeButton.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 16),
+            closeButton.heightAnchor.constraint(equalToConstant: 20),
+            closeButton.widthAnchor.constraint(equalToConstant: 20)
+        ])
+    }
+    
+    @objc func tapAvatar(){
+        self.addBlackView()
+        self.addButton()
+        NSLayoutConstraint.deactivate(avatar.constraints)
+        avatar.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.width).isActive = true
+        avatar.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width).isActive = true
+        avatar.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0).isActive = true
+        avatar.topAnchor.constraint(equalTo: self.topAnchor, constant: UIScreen.main.bounds.height / 2 - UIScreen.main.bounds.width / 2 - 80).isActive = true
+        
+        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
+            self.blackView.alpha = 0.5
+            self.avatar.layer.cornerRadius = 0.0
+            self.avatar.layer.borderWidth = 0.0
+            self.layoutIfNeeded()
+
+        }) { _ in
+            UIView.animate(withDuration: 0.3, delay: 0, animations: {
+                self.closeButton.alpha = 1.0
+            })
+        }
+    }
+    
+    @objc func tapReverse () {
+        
+        UIView.animate(withDuration: 0.3, delay: 0) {
+            self.closeButton.alpha = 0.0
+            
+            }
+        UIView.animate(withDuration: 0.5, delay: 0) {
+                self.blackView.alpha = 0.0
+                self.avatar.layer.cornerRadius = 64.0
+                self.avatar.layer.borderWidth = 3.0
+                self.avatar.center.x = 80
+                self.avatar.center.y = 80
+                self.avatar.layer.bounds = CGRect (x: 0, y: 0, width: 128, height: 128)
+                self.layoutIfNeeded()
+            }
+        
     }
     
     @objc func buttonPressed() {
