@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class ProfileHeaderView: UIView {
-    
+
     lazy var avatar: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "avatar.jpeg"))
         imageView.layer.borderWidth = 3.0
@@ -145,15 +145,14 @@ class ProfileHeaderView: UIView {
         self.addBlackView()
         self.addButton()
         NSLayoutConstraint.deactivate(avatar.constraints)
-        avatar.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.width).isActive = true
-        avatar.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width).isActive = true
-        avatar.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0).isActive = true
-        avatar.topAnchor.constraint(equalTo: self.topAnchor, constant: UIScreen.main.bounds.height / 2 - UIScreen.main.bounds.width / 2 - 80).isActive = true
+        self.avatar.translatesAutoresizingMaskIntoConstraints = true
         
         UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
             self.blackView.alpha = 0.5
             self.avatar.layer.cornerRadius = 0.0
             self.avatar.layer.borderWidth = 0.0
+            self.avatar.layer.bounds = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
+            self.avatar.center = CGPoint(x: self.safeAreaLayoutGuide.layoutFrame.width / 2, y: UIScreen.main.bounds.height / 2 - 60)
             self.layoutIfNeeded()
 
         }) { _ in
@@ -167,7 +166,6 @@ class ProfileHeaderView: UIView {
         
         UIView.animate(withDuration: 0.3, delay: 0) {
             self.closeButton.alpha = 0.0
-            
             }
         UIView.animate(withDuration: 0.5, delay: 0) {
                 self.blackView.alpha = 0.0
@@ -177,6 +175,7 @@ class ProfileHeaderView: UIView {
                 self.avatar.center.y = 80
                 self.avatar.layer.bounds = CGRect (x: 0, y: 0, width: 128, height: 128)
                 self.layoutIfNeeded()
+                self.willRemoveSubview(self.blackView)
             }
         
     }
