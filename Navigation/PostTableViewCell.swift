@@ -41,8 +41,13 @@ class PostTableViewCell: UITableViewCell {
         likes.font = UIFont.systemFont(ofSize: 16.0)
         likes.textColor = .black
         likes.translatesAutoresizingMaskIntoConstraints = false
+        likes.isUserInteractionEnabled = true
         return likes
     }()
+    
+    func tapFunction(sender:UITapGestureRecognizer) {
+            print("tap working")
+        }
     
     var views: UILabel = {
         let views = UILabel ()

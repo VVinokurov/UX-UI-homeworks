@@ -92,8 +92,20 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
             cell.descrip.text = postsForTable[indexPath.item].description
             cell.likes.text = "Likes: " + String(postsForTable[indexPath.item].likes)
             cell.views.text = "Views: " + String(postsForTable[indexPath.item].views)
+            let tapGesture : UITapGestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(labelTap(tapGesture:)))
+            tapGesture.delegate = self
+            tapGesture.numberOfTapsRequired = 1
+            cell.likes.isUserInteractionEnabled = true
+            cell.likes.tag = indexPath.row
+            cell.likes.addGestureRecognizer(tapGesture)
             return cell
         }
+    }
+    
+    @objc func labelTap(tapGesture:UITapGestureRecognizer){
+        postsForTable[tapGesture.view!.tag].likes.self += 1
+        self.tableView.reloadData()
+
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
