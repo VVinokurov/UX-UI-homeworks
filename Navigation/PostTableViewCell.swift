@@ -23,6 +23,7 @@ class PostTableViewCell: UITableViewCell {
         imageView.contentMode = .scaleAspectFit
         imageView.backgroundColor = .black
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.isUserInteractionEnabled = true
         return imageView
     }()
 
@@ -31,7 +32,7 @@ class PostTableViewCell: UITableViewCell {
         let des = UILabel ()
         des.font = UIFont.systemFont(ofSize: 14.0)
         des.textColor = .systemGray
-        des.numberOfLines = 0
+        des.numberOfLines = 3
         des.translatesAutoresizingMaskIntoConstraints = false
         return des
     }()
@@ -44,10 +45,6 @@ class PostTableViewCell: UITableViewCell {
         likes.isUserInteractionEnabled = true
         return likes
     }()
-    
-    func tapFunction(sender:UITapGestureRecognizer) {
-            print("tap working")
-        }
     
     var views: UILabel = {
         let views = UILabel ()

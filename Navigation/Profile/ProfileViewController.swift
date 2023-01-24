@@ -17,7 +17,7 @@ struct Posts {
 
 class ProfileViewController: UIViewController, UIGestureRecognizerDelegate {
     
-    var postsForTable = [Posts(author: "Интерфакс", description: "Цены на нефть растут после падения по итогам минувшей недели", image: "нефть.jpeg", likes: 200, views: 2350), Posts(author: "Minimalism", description: "В чем смысл минимализма? Почему нас вообще должно волновать меньшее потребление и нужно ли нам отказываться от всего, что есть?", image: "минимализм.jpeg", likes: 45, views: 573), Posts(author: "mini.people", description: "Прокачай свой MINI наклейками", image: "mini.jpeg", likes: 347, views: 1250), Posts(author: "kot.tattoo", description: "Свободный эскиз от мастера Саши", image: "кот.jpeg", likes: 206, views: 3458)]
+    var postsForTable = [Posts(author: "Интерфакс", description: "Цены на нефть растут после падения по итогам минувшей недели. Главным негативным фактором для нефтяных котировок на прошлой неделе стали опасения по поводу рецессии в мировой экономике и спроса на топливо в Китае. Трейдеры боятся, что на фоне данных о сохранении высокого уровня деловой активности в США и достаточно высокой инфляции Федрезерв продолжит придерживаться жесткой денежно-кредитной политики и не станет торопиться со снижением ставок. Это может замедлить экономический рост в Соединенных Штатах и в мире в целом или даже привести к глобальной рецессии, что понизит спрос на топливо.", image: "нефть.jpeg", likes: 200, views: 2350), Posts(author: "Minimalism", description: "В чем смысл минимализма? Почему нас вообще должно волновать меньшее потребление и нужно ли нам отказываться от всего, что есть?", image: "минимализм.jpeg", likes: 45, views: 573), Posts(author: "mini.people", description: "Прокачай свой MINI наклейками", image: "mini.jpeg", likes: 347, views: 1250), Posts(author: "kot.tattoo", description: "Свободный эскиз от мастера Саши", image: "кот.jpeg", likes: 206, views: 3458)]
     
     var tableView = UITableView(frame: .zero)
     
@@ -94,10 +94,13 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
             cell.views.text = "Views: " + String(postsForTable[indexPath.item].views)
             let tapGesture : UITapGestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(labelTap(tapGesture:)))
             tapGesture.delegate = self
-            tapGesture.numberOfTapsRequired = 1
-            cell.likes.isUserInteractionEnabled = true
             cell.likes.tag = indexPath.row
             cell.likes.addGestureRecognizer(tapGesture)
+            
+            let imageTapGesture : UITapGestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(imageTap(imageTapGesture:)))
+            imageTapGesture.delegate = self
+            cell.image.tag = indexPath.row
+            cell.image.addGestureRecognizer(imageTapGesture)
             return cell
         }
     }
@@ -105,7 +108,18 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     @objc func labelTap(tapGesture:UITapGestureRecognizer){
         postsForTable[tapGesture.view!.tag].likes.self += 1
         self.tableView.reloadData()
-
+    }
+    
+    @objc func imageTap(imageTapGesture:UITapGestureRecognizer){
+        postsForTable[imageTapGesture.view!.tag].views.self += 1
+        self.tableView.reloadData()
+        let postDescriptionViewController = PostDescriptionViewController()
+        postDescriptionViewController.postAuthor = postsForTable[imageTapGesture.view!.tag].author.self
+        postDescriptionViewController.postImage = postsForTable[imageTapGesture.view!.tag].image.self
+        postDescriptionViewController.postDescription = postsForTable[imageTapGesture.view!.tag].description.self
+        postDescriptionViewController.postLikes = postsForTable[imageTapGesture.view!.tag].likes.self
+        postDescriptionViewController.postViews = postsForTable[imageTapGesture.view!.tag].views.self
+        self.navigationController?.pushViewController(postDescriptionViewController, animated: true)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
