@@ -76,11 +76,40 @@ class LogInViewController: UIViewController {
         return button
     }()
     
+    func shakeTextField(textField: UITextField) {
+        let animation = CABasicAnimation(keyPath: "position")
+        animation.duration = 0.09
+        animation.repeatCount = 2
+        animation.autoreverses = true
+        animation.fromValue = NSValue(cgPoint: CGPoint(x: textField.center.x - 2, y: textField.center.y))
+        animation.toValue = NSValue(cgPoint: CGPoint(x: textField.center.x + 2, y: textField.center.y))
+        let animationColor = CABasicAnimation(keyPath: "backgroundColor")
+        animationColor.duration = 0.09
+        animationColor.repeatCount = 2
+        animationColor.autoreverses = true
+        animationColor.fromValue = UIColor(white: 1, alpha: 1).cgColor
+        animationColor.toValue = UIColor(red: 1, green: 0, blue: 0, alpha: 0.3).cgColor
+        textField.layer.add(animation, forKey: "position")
+        textField.layer.add(animationColor, forKey: "backgroundColor")
+    }
+    
     @objc func goToProfile () {
-        let profileViewController = ProfileViewController()
-        profileViewController.title = "Profile"
-        self.navigationController?.pushViewController(profileViewController, animated: true)
-        self.navigationController?.isNavigationBarHidden = false
+        if loginText.text == "" && passwordText.text == "" {
+            print ("введите логин пароль")
+            shakeTextField(textField: loginText)
+            shakeTextField(textField: passwordText)
+        } else if loginText.text == "" {
+            print ("введите логин")
+            shakeTextField(textField: loginText)
+        } else if passwordText.text == "" {
+            print ("введите пароль")
+            shakeTextField(textField: passwordText)
+        } else {
+            let profileViewController = ProfileViewController()
+            profileViewController.title = "Profile"
+            self.navigationController?.pushViewController(profileViewController, animated: true)
+            self.navigationController?.isNavigationBarHidden = false
+        }
     }
 
     func addSubview(){
