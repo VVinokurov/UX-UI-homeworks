@@ -180,10 +180,32 @@ class ProfileHeaderView: UIView {
         
     }
     
-    @objc func buttonPressed() {
-       statusText.text = statusTextEdit
-    }
     private var statusTextEdit: String = ""
+    func shakeTextField(textField: UITextField) {
+        let animation = CABasicAnimation(keyPath: "position")
+        animation.duration = 0.09
+        animation.repeatCount = 2
+        animation.autoreverses = true
+        animation.fromValue = NSValue(cgPoint: CGPoint(x: textField.center.x - 5, y: textField.center.y))
+        animation.toValue = NSValue(cgPoint: CGPoint(x: textField.center.x + 5, y: textField.center.y))
+        let animationColor = CABasicAnimation(keyPath: "backgroundColor")
+        animationColor.duration = 0.09
+        animationColor.repeatCount = 2
+        animationColor.autoreverses = true
+        animationColor.fromValue = UIColor(white: 1, alpha: 1).cgColor
+        animationColor.toValue = UIColor(red: 1, green: 0, blue: 0, alpha: 0.3).cgColor
+        textField.layer.add(animation, forKey: "position")
+        textField.layer.add(animationColor, forKey: "backgroundColor")
+    }
+    
+    @objc func buttonPressed() {
+        if statusTextEdit == "" {
+            shakeTextField(textField: textField)
+        } else {
+            statusText.text = statusTextEdit
+        }
+    }
+
     
     @objc func statusTextChanged(_sender: UITextField) {
        statusTextEdit = textField.text ?? ""
