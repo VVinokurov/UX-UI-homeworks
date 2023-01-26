@@ -181,6 +181,7 @@ class ProfileHeaderView: UIView {
     }
     
     private var statusTextEdit: String = ""
+    
     func shakeTextField(textField: UITextField) {
         let animation = CABasicAnimation(keyPath: "position")
         animation.duration = 0.09
@@ -206,7 +207,6 @@ class ProfileHeaderView: UIView {
         }
     }
 
-    
     @objc func statusTextChanged(_sender: UITextField) {
        statusTextEdit = textField.text ?? ""
     }

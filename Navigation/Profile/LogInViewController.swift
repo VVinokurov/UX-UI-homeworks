@@ -12,12 +12,26 @@ class LogInViewController: UIViewController {
     var scrollView: UIScrollView!
     let colorHex = UIColor(named: "ColorSet")
     
+    var standartLogin = "vinokurov@mail.ru"
+    var standartPassword = "12345"
+    
     lazy var logo: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "VK.png"))
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-
+    
+    lazy var warningLabel: UILabel = {
+        let passwordLabel = UILabel()
+        passwordLabel.text = "Пароль должен состоять из пяти или более символов"
+        passwordLabel.font = UIFont.systemFont(ofSize: 10.0)
+        passwordLabel.textColor = .red
+        passwordLabel.textAlignment = .center
+        passwordLabel.isHidden = true
+        passwordLabel.translatesAutoresizingMaskIntoConstraints = false
+        return passwordLabel
+    } ()
+    
         lazy var loginText: UITextField = {
             let login = UITextField(frame: .zero)
             login.placeholder = "Email of phone"
@@ -59,6 +73,7 @@ class LogInViewController: UIViewController {
             password.autocapitalizationType = .none
             password.isSecureTextEntry = true
             password.keyboardType = UIKeyboardType.default
+            password.addTarget(self, action: #selector(passwordChanged), for: .editingChanged)
             password.translatesAutoresizingMaskIntoConstraints = false
             return password
         }()
@@ -81,8 +96,8 @@ class LogInViewController: UIViewController {
         animation.duration = 0.09
         animation.repeatCount = 2
         animation.autoreverses = true
-        animation.fromValue = NSValue(cgPoint: CGPoint(x: textField.center.x - 2, y: textField.center.y))
-        animation.toValue = NSValue(cgPoint: CGPoint(x: textField.center.x + 2, y: textField.center.y))
+        animation.fromValue = NSValue(cgPoint: CGPoint(x: textField.center.x - 3, y: textField.center.y))
+        animation.toValue = NSValue(cgPoint: CGPoint(x: textField.center.x + 3, y: textField.center.y))
         let animationColor = CABasicAnimation(keyPath: "backgroundColor")
         animationColor.duration = 0.09
         animationColor.repeatCount = 2
@@ -105,10 +120,32 @@ class LogInViewController: UIViewController {
             print ("введите пароль")
             shakeTextField(textField: passwordText)
         } else {
-            let profileViewController = ProfileViewController()
-            profileViewController.title = "Profile"
-            self.navigationController?.pushViewController(profileViewController, animated: true)
-            self.navigationController?.isNavigationBarHidden = false
+            if passwordText.text!.count < 5 {
+                shakeTextField(textField: passwordText)
+            } else {
+                if loginText.text == standartLogin && passwordText.text == standartPassword {
+                    let profileViewController = ProfileViewController()
+                    profileViewController.title = "Profile"
+                    self.navigationController?.pushViewController(profileViewController, animated: true)
+                    self.navigationController?.isNavigationBarHidden = false
+                } else {
+                    let alert = UIAlertController(title: "Введен неверный логин или пароль", message: "Попробуйте ввести заново", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Ок", style: .default, handler: nil))
+                    self.present(alert, animated: true)
+                }
+            }
+        }
+    }
+    
+    @objc func passwordChanged(password: UITextField) {
+        if password.text == "" {
+            warningLabel.isHidden = true
+        } else {
+        if password.text!.count < 5 {
+            warningLabel.isHidden = false
+            } else {
+                warningLabel.isHidden = true
+            }
         }
     }
 
@@ -116,6 +153,7 @@ class LogInViewController: UIViewController {
         scrollView.addSubview(logo)
         scrollView.addSubview(loginText)
         scrollView.addSubview(passwordText)
+        scrollView.addSubview(warningLabel)
         scrollView.addSubview(buttonLogIn)
     }
     
@@ -151,11 +189,18 @@ class LogInViewController: UIViewController {
             passwordText.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16),
             passwordText.heightAnchor.constraint(equalToConstant: 50),
             passwordText.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
+            passwordText.bottomAnchor.constraint(equalTo: passwordText.topAnchor, constant: 5),
+            warningLabel.topAnchor.constraint(equalTo: passwordText.bottomAnchor, constant: 5),
+            warningLabel.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 5),
+            warningLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: 5),
+            warningLabel.widthAnchor.constraint(equalToConstant: scrollView.bounds.width - 20),
+            warningLabel.heightAnchor.constraint(equalToConstant: 10),
+            warningLabel.bottomAnchor.constraint(equalTo: buttonLogIn.topAnchor, constant: -5),
             buttonLogIn.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16),
             buttonLogIn.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
-            buttonLogIn.topAnchor.constraint(equalTo: passwordText.bottomAnchor, constant: 16),
+            buttonLogIn.topAnchor.constraint(equalTo: warningLabel.bottomAnchor, constant: 5),
             buttonLogIn.heightAnchor.constraint(equalToConstant: 50),
-            buttonLogIn.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -10)
+            buttonLogIn.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -50),
         ])
     }
     
@@ -183,15 +228,4 @@ class LogInViewController: UIViewController {
     @objc func keyboardWillHide(_ notification: NSNotification){
         self.scrollView.contentInset = .zero
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
