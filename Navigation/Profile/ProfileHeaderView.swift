@@ -116,7 +116,7 @@ class ProfileHeaderView: UIView {
     }
     
     let closeButton = UIButton(frame: .zero)
-    let blackView = UIView(frame: CGRect(x:0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+    var blackView = UIView(frame: .zero)
     
     func addBlackView() {
         self.addSubview(blackView)
@@ -142,6 +142,7 @@ class ProfileHeaderView: UIView {
     }
     
     @objc func tapAvatar(){
+        blackView = UIView(frame: CGRect(x:0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
         self.addBlackView()
         self.addButton()
         NSLayoutConstraint.deactivate(avatar.constraints)
@@ -177,7 +178,6 @@ class ProfileHeaderView: UIView {
                 self.layoutIfNeeded()
                 self.willRemoveSubview(self.blackView)
             }
-        
     }
     
     private var statusTextEdit: String = ""

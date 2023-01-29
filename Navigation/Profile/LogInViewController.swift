@@ -108,30 +108,38 @@ class LogInViewController: UIViewController {
         textField.layer.add(animationColor, forKey: "backgroundColor")
     }
     
+    func validBy (email: String) -> Bool {
+        let emailPattern = #"^[a-z0-9][-_.a-z0-9]{0,20}@[a-z0-9][a-z0-9]{0,30}[a-z0-9].[a-z]{2,8}$"#
+        let result = email.range(of: emailPattern, options: .regularExpression)
+        let validEmail = (result != nil)
+        return validEmail
+    }
+    
     @objc func goToProfile () {
         if loginText.text == "" && passwordText.text == "" {
-            print ("введите логин пароль")
             shakeTextField(textField: loginText)
             shakeTextField(textField: passwordText)
         } else if loginText.text == "" {
-            print ("введите логин")
             shakeTextField(textField: loginText)
         } else if passwordText.text == "" {
-            print ("введите пароль")
             shakeTextField(textField: passwordText)
         } else {
             if passwordText.text!.count < 5 {
                 shakeTextField(textField: passwordText)
             } else {
-                if loginText.text == standartLogin && passwordText.text == standartPassword {
-                    let profileViewController = ProfileViewController()
-                    profileViewController.title = "Profile"
-                    self.navigationController?.pushViewController(profileViewController, animated: true)
-                    self.navigationController?.isNavigationBarHidden = false
+                if validBy(email: loginText.text ?? "") {
+                    if loginText.text == standartLogin && passwordText.text == standartPassword {
+                        let profileViewController = ProfileViewController()
+                        profileViewController.title = "Profile"
+                        self.navigationController?.pushViewController(profileViewController, animated: true)
+                        self.navigationController?.isNavigationBarHidden = false
+                    } else {
+                        let alert = UIAlertController(title: "Введен неверный логин или пароль", message: "Попробуйте ввести заново", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "Ок", style: .default, handler: nil))
+                        self.present(alert, animated: true)
+                    }
                 } else {
-                    let alert = UIAlertController(title: "Введен неверный логин или пароль", message: "Попробуйте ввести заново", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "Ок", style: .default, handler: nil))
-                    self.present(alert, animated: true)
+                    shakeTextField(textField: loginText)
                 }
             }
         }

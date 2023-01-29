@@ -7,30 +7,35 @@
 
 import UIKit
 
-class PhotosCollectionViewCell: UICollectionViewCell {
+class PhotosCollectionViewCell: UICollectionViewCell, UICollectionViewDelegate {
     
     static let reusableId = "collection cell"
     
-    var image: UIImageView!
+    var centerX: CGFloat = 0
+    var centerY: CGFloat = 0
     
-    override init(frame: CGRect) {
-        image = UIImageView(image: UIImage(named: ""))
+    var image: UIImageView = {
+        let image = UIImageView(image: UIImage(named: ""))
         image.clipsToBounds = true
         image.translatesAutoresizingMaskIntoConstraints = false
         image.contentMode = .scaleAspectFill
+        image.isUserInteractionEnabled = true
+        return image
+    }()
+    
+    override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.addSubview(image)
-        contentView.backgroundColor = .black
         NSLayoutConstraint.activate ([
-            image.topAnchor.constraint(equalTo: topAnchor),
-            image.bottomAnchor.constraint(equalTo: bottomAnchor),
-            image.leadingAnchor.constraint(equalTo: leadingAnchor),
-            image.trailingAnchor.constraint(equalTo: trailingAnchor),
+            image.topAnchor.constraint(equalTo: contentView.topAnchor),
+            image.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            image.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            image.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             ])
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+   
 }

@@ -94,5 +94,12 @@ class PostDescriptionViewController: UIViewController {
             views.heightAnchor.constraint(equalToConstant: 16)
         ])
     }
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.isHidden = false
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.navigationBar.isHidden = true
+    }
 }
