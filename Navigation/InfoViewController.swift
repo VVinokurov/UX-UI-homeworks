@@ -17,9 +17,8 @@ class InfoViewController: UIViewController {
         buttonInfo.setTitle("IKEA покинула нас", for: .normal)
         buttonInfo.addTarget(self, action: #selector(buttonAlert), for: .touchUpInside)
         self.view.addSubview(buttonInfo)
-
-        // Do any additional setup after loading the view.
     }
+    
     @objc func buttonAlert () {
         let alert = UIAlertController(title: "Вы любили покупать товары в IKEA?", message: "выберете ответ", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Да", style: .default, handler: { action in
@@ -30,15 +29,4 @@ class InfoViewController: UIViewController {
         }))
         self.present(alert, animated: true)
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

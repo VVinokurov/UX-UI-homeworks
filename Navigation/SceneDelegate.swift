@@ -10,17 +10,17 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func createFeedViewController() -> UINavigationController {
         let feedViewController = FeedViewController()
-        feedViewController.title = "Лента"
+        feedViewController.title = "Feed"
         let nvc = UINavigationController(rootViewController: feedViewController)
-        nvc.tabBarItem = UITabBarItem(title: "Лента", image: UIImage(systemName: "list.bullet.circle"), tag: 0)
+        nvc.tabBarItem = UITabBarItem(title: "Feed", image: UIImage(systemName: "list.bullet.circle"), tag: 0)
         return nvc
     }
     
     func createProfileViewController() -> UINavigationController {
-        let profileViewController = ProfileViewController()
-        profileViewController.title = "Профиль"
-        let nvc = UINavigationController(rootViewController: profileViewController)
-        nvc.tabBarItem = UITabBarItem(title: "Профиль", image: UIImage(systemName: "person.badge.shield.checkmark.fill"), tag: 0)
+        let logInViewController = LogInViewController()
+        logInViewController.title = "Log in"
+        let nvc = UINavigationController(rootViewController: logInViewController)
+        nvc.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person.badge.shield.checkmark.fill"), tag: 0)
         return nvc
     }
     func createTabBar() -> UITabBarController {
@@ -34,9 +34,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let winScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: winScene)
         window.rootViewController = createTabBar()
@@ -45,10 +42,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
-        // Called as the scene is being released by the system.
-        // This occurs shortly after the scene enters the background, or when its session is discarded.
-        // Release any resources associated with this scene that can be re-created the next time the scene connects.
-        // The scene may re-connect later, as its session was not necessarily discarded (see `application:didDiscardSceneSessions` instead).
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
