@@ -9,11 +9,18 @@ import UIKit
 
 class LogInViewController: UIViewController {
 
-    var scrollView: UIScrollView!
     let colorHex = UIColor(named: "ColorSet")
-    
     var standartLogin = "vinokurov@mail.ru"
     var standartPassword = "12345"
+    
+    var scrollView: UIScrollView = {
+        let scrollView = UIScrollView(frame: .zero)
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.backgroundColor = .white
+        scrollView.keyboardDismissMode = .interactive
+        return scrollView
+    }()
+    
     
     lazy var logo: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "VK.png"))
@@ -42,17 +49,20 @@ class LogInViewController: UIViewController {
             login.font = UIFont(name: "SystemFont", size: 16)
             login.textColor = .black
             login.tintColor = colorHex
-            login.backgroundColor = .systemGray6
-            login.layer.borderWidth = 0.5
-            login.layer.borderColor = UIColor.lightGray.cgColor
-            login.layer.cornerRadius = 10.0
-            login.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+            login.backgroundColor = .clear
             login.clearButtonMode = .always
             login.autocapitalizationType = .none
             login.keyboardType = UIKeyboardType.default
             login.translatesAutoresizingMaskIntoConstraints = false
             return login
         }()
+    
+    var blackLine: UIView = {
+        let blackLine = UIView(frame: .zero)
+        blackLine.backgroundColor = .lightGray
+        blackLine.translatesAutoresizingMaskIntoConstraints = false
+        return blackLine
+    }()
         
         lazy var passwordText: UITextField = {
             let password = UITextField(frame: .zero)
@@ -64,11 +74,7 @@ class LogInViewController: UIViewController {
             password.font = UIFont(name: "SystemFont", size: 16)
             password.textColor = .black
             password.tintColor = colorHex
-            password.backgroundColor = .systemGray6
-            password.layer.borderWidth = 0.5
-            password.layer.borderColor = UIColor.lightGray.cgColor
-            password.layer.cornerRadius = 10.0
-            password.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+            password.backgroundColor = .clear
             password.clearButtonMode = .always
             password.autocapitalizationType = .none
             password.isSecureTextEntry = true
@@ -77,6 +83,17 @@ class LogInViewController: UIViewController {
             password.translatesAutoresizingMaskIntoConstraints = false
             return password
         }()
+    
+    let stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.layer.borderWidth = 0.5
+        stackView.layer.borderColor = UIColor.lightGray.cgColor
+        stackView.layer.cornerRadius = 10.0
+        stackView.backgroundColor = .systemGray6
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
     
     lazy var buttonLogIn: UIButton = {
         let button = UIButton()
@@ -158,24 +175,17 @@ class LogInViewController: UIViewController {
     }
 
     func addSubview(){
+        view.addSubview(scrollView)
+        scrollView.addSubview(stackView)
         scrollView.addSubview(logo)
-        scrollView.addSubview(loginText)
-        scrollView.addSubview(passwordText)
+        stackView.addArrangedSubview(loginText)
+        stackView.addArrangedSubview(blackLine)
+        stackView.addArrangedSubview(passwordText)
         scrollView.addSubview(warningLabel)
         scrollView.addSubview(buttonLogIn)
     }
     
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .white
-        self.navigationController?.isNavigationBarHidden = true
-        scrollView = UIScrollView(frame: .zero)
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.backgroundColor = .white
-        view.addSubview(scrollView)
-        addSubview()
-        scrollView.keyboardDismissMode = .interactive
+    func addLayoutConstraints(){
         let safeArea = view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
             scrollView.heightAnchor.constraint(equalTo: safeArea.heightAnchor),
@@ -189,15 +199,25 @@ class LogInViewController: UIViewController {
             logo.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 120),
             logo.heightAnchor.constraint(equalToConstant: 100),
             logo.widthAnchor.constraint(equalToConstant: 100),
-            loginText.topAnchor.constraint(equalTo: logo.bottomAnchor, constant: 120),
-            loginText.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16),
-            loginText.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
+            stackView.topAnchor.constraint(equalTo: logo.bottomAnchor, constant: 120),
+            stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16),
+            stackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
+            stackView.heightAnchor.constraint(equalToConstant: 100.5),
+            stackView.bottomAnchor.constraint(equalTo: warningLabel.topAnchor, constant: -5),
+            loginText.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 0),
+            loginText.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 0),
+            loginText.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: 0),
             loginText.heightAnchor.constraint(equalToConstant: 50),
-            passwordText.topAnchor.constraint(equalTo: loginText.bottomAnchor, constant: 0),
-            passwordText.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16),
+            blackLine.topAnchor.constraint(equalTo: loginText.bottomAnchor, constant: 0),
+            blackLine.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 0),
+            blackLine.heightAnchor.constraint(equalToConstant: 0.5),
+            blackLine.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: 0),
+            blackLine.bottomAnchor.constraint(equalTo: passwordText.topAnchor, constant: 0),
+            passwordText.topAnchor.constraint(equalTo: blackLine.bottomAnchor, constant: 0),
+            passwordText.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 0),
             passwordText.heightAnchor.constraint(equalToConstant: 50),
-            passwordText.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
-            passwordText.bottomAnchor.constraint(equalTo: passwordText.topAnchor, constant: 5),
+            passwordText.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: 0),
+            passwordText.bottomAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 0),
             warningLabel.topAnchor.constraint(equalTo: passwordText.bottomAnchor, constant: 5),
             warningLabel.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 5),
             warningLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: 5),
@@ -210,6 +230,14 @@ class LogInViewController: UIViewController {
             buttonLogIn.heightAnchor.constraint(equalToConstant: 50),
             buttonLogIn.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -50),
         ])
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .white
+        self.navigationController?.isNavigationBarHidden = true
+        addSubview()
+        addLayoutConstraints()
     }
     
     override func viewWillAppear(_ animated: Bool) {

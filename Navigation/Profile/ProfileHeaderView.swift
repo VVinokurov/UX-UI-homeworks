@@ -76,6 +76,23 @@ class ProfileHeaderView: UIView {
         return button
     }()
     
+    var blackView: UIView = {
+        let blackView = UIView(frame: CGRect(x:0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+        blackView.backgroundColor = .black
+        blackView.alpha = 0.0
+        return blackView
+    }()
+    
+    let closeButton: UIButton = {
+        let closeButton = UIButton(frame: .zero)
+        closeButton.setImage(UIImage(systemName: "clear"), for: .normal)
+        closeButton.translatesAutoresizingMaskIntoConstraints = false
+        closeButton.backgroundColor = .clear
+        closeButton.alpha = 0.0
+        closeButton.tintColor = .white
+        return closeButton
+    }()
+    
     func addSubview(){
         self.addSubview(avatar)
         self.addSubview(nickname)
@@ -83,9 +100,10 @@ class ProfileHeaderView: UIView {
         self.addSubview(textField)
         self.addSubview(button)
         self.backgroundColor = .lightGray
+        self.addSubview(blackView)
+        self.bringSubviewToFront(avatar)
+        self.addSubview(closeButton)
     }
-    
-    
     
     func setupConstraints() {
         let safeArea = self.safeAreaLayoutGuide
@@ -112,42 +130,17 @@ class ProfileHeaderView: UIView {
         statusText.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 160),
         statusText.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
         statusText.heightAnchor.constraint(equalToConstant: 20),
-        ])
-    }
-    
-    let closeButton = UIButton(frame: .zero)
-    var blackView = UIView(frame: .zero)
-    
-    func addBlackView() {
-        self.addSubview(blackView)
-        self.bringSubviewToFront(avatar)
-        blackView.backgroundColor = .black
-        blackView.alpha = 0.0
-    }
-    
-    func addButton() {
-        self.addSubview(closeButton)
-        closeButton.setImage(UIImage(systemName: "clear"), for: .normal)
-        closeButton.addTarget(self, action: #selector(tapReverse), for: .touchUpInside)
-        closeButton.translatesAutoresizingMaskIntoConstraints = false
-        closeButton.backgroundColor = .clear
-        closeButton.alpha = 0.0
-        let safeArea = self.safeAreaLayoutGuide
-        NSLayoutConstraint.activate([
-            closeButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
-            closeButton.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 16),
-            closeButton.heightAnchor.constraint(equalToConstant: 20),
-            closeButton.widthAnchor.constraint(equalToConstant: 20)
+        closeButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
+        closeButton.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 16),
+        closeButton.heightAnchor.constraint(equalToConstant: 20),
+        closeButton.widthAnchor.constraint(equalToConstant: 20)
         ])
     }
     
     @objc func tapAvatar(){
-        blackView = UIView(frame: CGRect(x:0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
-        self.addBlackView()
-        self.addButton()
+        closeButton.addTarget(self, action: #selector(tapReverse), for: .touchUpInside)
         NSLayoutConstraint.deactivate(avatar.constraints)
         self.avatar.translatesAutoresizingMaskIntoConstraints = true
-        
         UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
             self.blackView.alpha = 0.5
             self.avatar.layer.cornerRadius = 0.0
@@ -164,7 +157,6 @@ class ProfileHeaderView: UIView {
     }
     
     @objc func tapReverse () {
-        
         UIView.animate(withDuration: 0.3, delay: 0) {
             self.closeButton.alpha = 0.0
             }

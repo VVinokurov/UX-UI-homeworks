@@ -23,15 +23,19 @@ class PhotosCollectionViewCell: UICollectionViewCell, UICollectionViewDelegate {
         return image
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        contentView.addSubview(image)
+    func addLayoutConstraints(){
         NSLayoutConstraint.activate ([
             image.topAnchor.constraint(equalTo: contentView.topAnchor),
             image.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             image.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             image.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             ])
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        contentView.addSubview(image)
+        addLayoutConstraints()
     }
     
     required init?(coder: NSCoder) {

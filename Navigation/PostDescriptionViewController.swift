@@ -9,12 +9,18 @@ import UIKit
 
 class PostDescriptionViewController: UIViewController {
 
-    var scrollView: UIScrollView!
     var postAuthor: String = ""
     var postImage: String = ""
     var postDescription: String = ""
     var postLikes: Int = 0
     var postViews: Int = 0
+    
+    var scrollView: UIScrollView = {
+        let scrollView = UIScrollView(frame: .zero)
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.backgroundColor = .white
+        return scrollView
+    }()
     
     var image: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: ""))
@@ -50,22 +56,15 @@ class PostDescriptionViewController: UIViewController {
         return views
     }()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.view.backgroundColor = .white
-        self.navigationItem.title = postAuthor
-        scrollView = UIScrollView(frame: .zero)
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.backgroundColor = .white
+    func addSubviews() {
         view.addSubview(scrollView)
-        image.image = UIImage(named: postImage)
-        descrip.text = postDescription
-        likes.text = "Likes: " + String(postLikes)
-        views.text = "Views: " + String(postViews)
         scrollView.addSubview(descrip)
         scrollView.addSubview(image)
         scrollView.addSubview(likes)
         scrollView.addSubview(views)
+    }
+    
+    func addLayout() {
         let safeArea = view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
             scrollView.heightAnchor.constraint(equalTo: safeArea.heightAnchor),
@@ -93,6 +92,18 @@ class PostDescriptionViewController: UIViewController {
             views.bottomAnchor.constraint(equalTo: self.scrollView.bottomAnchor, constant: -16),
             views.heightAnchor.constraint(equalToConstant: 16)
         ])
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.view.backgroundColor = .white
+        self.navigationItem.title = postAuthor
+        image.image = UIImage(named: postImage)
+        descrip.text = postDescription
+        likes.text = "Likes: " + String(postLikes)
+        views.text = "Views: " + String(postViews)
+        addSubviews()
+        addLayout()
     }
     
     override func viewWillAppear(_ animated: Bool) {

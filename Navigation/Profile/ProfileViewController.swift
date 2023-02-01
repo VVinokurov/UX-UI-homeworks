@@ -7,40 +7,20 @@
 
 import UIKit
 
-struct Posts {
-    var author: String
-    var description: String
-    var image: String
-    var likes: Int
-    var views: Int
-}
-
 class ProfileViewController: UIViewController, UIGestureRecognizerDelegate {
     
-    var postsForTable = [
-        Posts(author: "Интерфакс", description: "Цены на нефть растут после падения по итогам минувшей недели. Главным негативным фактором для нефтяных котировок на прошлой неделе стали опасения по поводу рецессии в мировой экономике и спроса на топливо в Китае. Трейдеры боятся, что на фоне данных о сохранении высокого уровня деловой активности в США и достаточно высокой инфляции Федрезерв продолжит придерживаться жесткой денежно-кредитной политики и не станет торопиться со снижением ставок. Это может замедлить экономический рост в Соединенных Штатах и в мире в целом или даже привести к глобальной рецессии, что понизит спрос на топливо.", image: "нефть.jpeg", likes: 200, views: 2350),
-        Posts(author: "Minimalism", description: "В чем смысл минимализма? Почему нас вообще должно волновать меньшее потребление и нужно ли нам отказываться от всего, что есть?", image: "минимализм.jpeg", likes: 45, views: 573),
-        Posts(author: "mini.people", description: "Прокачай свой MINI наклейками", image: "mini.jpeg", likes: 347, views: 1250),
-        Posts(author: "kot.tattoo", description: "Свободный эскиз от мастера Саши", image: "кот.jpeg", likes: 206, views: 3458)]
+    var postsForTable = profilePosts
     
-    var tableView = UITableView(frame: .zero)
+    var tableView = UITableView(frame: .zero, style: .grouped)
     
     let profileView = ProfileHeaderView()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .white
+    func addSubview(){
         self.view.addSubview(tableView)
-        self.tableView.dataSource = self
-        self.tableView.delegate = self
-        self.tableView.rowHeight = UITableView.automaticDimension
-        self.tableView.sectionHeaderTopPadding = .leastNormalMagnitude
-        tableView.register(PostTableViewCell.self, forCellReuseIdentifier: "PostTableViewCell")
-        tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: "PhotosTableViewCell")
-        tableView.translatesAutoresizingMaskIntoConstraints = false
         profileView.addSubview()
-        profileView.setupConstraints()
-
+    }
+    
+    func addLayoutConstraints(){
         let safeArea = self.view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
             tableView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
@@ -48,7 +28,20 @@ class ProfileViewController: UIViewController, UIGestureRecognizerDelegate {
             tableView.topAnchor.constraint(equalTo: safeArea.topAnchor),
             tableView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
         ])
-        
+        profileView.setupConstraints()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .white
+        addSubview()
+        addLayoutConstraints()
+        self.tableView.dataSource = self
+        self.tableView.delegate = self
+        self.tableView.rowHeight = UITableView.automaticDimension
+        tableView.register(PostTableViewCell.self, forCellReuseIdentifier: "PostTableViewCell")
+        tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: "PhotosTableViewCell")
+        tableView.translatesAutoresizingMaskIntoConstraints = false
     }
 }
 
@@ -71,7 +64,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         if section == 0 {
             return UITableView.automaticDimension
         }else {
-            return 0
+            return 0.0
         }
     }
     
@@ -83,6 +76,14 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
                 return postsForTable.count
             }
     }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+            return CGFloat.leastNormalMagnitude
+        }
+
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+            return UIView()
+        }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch(indexPath.section) {

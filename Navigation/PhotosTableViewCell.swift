@@ -9,8 +9,6 @@ import UIKit
 
 class PhotosTableViewCell: UITableViewCell {
     
-    
-    
     var label: UILabel = {
         let label = UILabel(frame: .zero)
         label.text = "Photos"
@@ -64,27 +62,16 @@ class PhotosTableViewCell: UITableViewCell {
         return image
     }()
     
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        addSubViewsAndlayout()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    
-    
-    func addSubViewsAndlayout() {
+    func addSubViews() {
         contentView.addSubview(label)
         contentView.addSubview(image1)
         contentView.addSubview(image2)
         contentView.addSubview(image3)
         contentView.addSubview(image4)
         contentView.addSubview(imageArrowRight)
-
+    }
     
+    func addLayoutConstraints() {
         NSLayoutConstraint.activate ([
             label.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
             label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
@@ -117,16 +104,23 @@ class PhotosTableViewCell: UITableViewCell {
             imageArrowRight.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12)
         ])
     }
-
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        addSubViews()
+        addLayoutConstraints()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+  
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
 
 }
